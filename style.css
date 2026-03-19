@@ -1,0 +1,582 @@
+/* Сброс стилей */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #fafafa;
+    color: #1a1a1a;
+    line-height: 1.6;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Основной контейнер */
+.container {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+/* Левая часть с контентом */
+.content {
+    width: 40%;
+    min-width: 500px;
+    padding: 60px 40px;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-shadow: 2px 0 20px rgba(0,0,0,0.02);
+}
+
+/* Заголовок */
+.header {
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.header h1 {
+    font-size: 42px;
+    font-weight: 400;
+    letter-spacing: -0.5px;
+    margin-bottom: 10px;
+    color: #000;
+}
+
+.meta-info {
+    font-size: 14px;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.meta-info .separator {
+    color: #ddd;
+    font-weight: 300;
+}
+
+.meta-info .location,
+.meta-info .profession,
+.meta-info .experience {
+    font-weight: 400;
+    letter-spacing: 0.3px;
+}
+
+/* Список проектов */
+.projects-list {
+    flex: 1;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #ccc #f5f5f5;
+    padding-right: 10px;
+}
+
+.projects-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.projects-list::-webkit-scrollbar-track {
+    background: #f5f5f5;
+}
+
+.projects-list::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+/* Элемент проекта */
+.project-item {
+    display: flex;
+    align-items: center;
+    padding: 18px 15px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 8px;
+    border-left: 2px solid transparent;
+}
+
+.project-item:hover {
+    background: #f8f8f8;
+    border-left-color: #000;
+    padding-left: 20px;
+}
+
+.project-number {
+    font-size: 13px;
+    color: #999;
+    width: 45px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+}
+
+.project-name {
+    font-size: 18px;
+    font-weight: 400;
+    color: #333;
+    transition: color 0.2s;
+}
+
+.project-item:hover .project-name {
+    color: #000;
+}
+
+/* Правая часть с превью */
+.preview {
+    width: 60%;
+    height: 100vh;
+    position: relative;
+    background: #000;
+    overflow: hidden;
+}
+
+.preview-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.preview-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+    opacity: 1;
+}
+
+.preview-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 50px;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    color: white;
+}
+
+.preview-info {
+    max-width: 80%;
+}
+
+.preview-info h3 {
+    font-size: 28px;
+    font-weight: 400;
+    margin-bottom: 8px;
+    letter-spacing: -0.3px;
+}
+
+.preview-info p {
+    font-size: 16px;
+    opacity: 0.8;
+    line-height: 1.5;
+}
+
+/* Модальные окна */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background: white;
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    border-radius: 12px;
+    padding: 40px;
+    position: relative;
+    animation: modalSlideIn 0.3s ease;
+    overflow-y: auto;
+}
+
+@keyframes modalSlideIn {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.close-modal {
+    position: absolute;
+    right: 25px;
+    top: 20px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #999;
+    transition: color 0.2s;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-modal:hover {
+    color: #000;
+}
+
+.modal h2 {
+    font-size: 32px;
+    font-weight: 400;
+    margin-bottom: 30px;
+    color: #000;
+    letter-spacing: -0.5px;
+}
+
+/* Отзывы в модальном окне */
+.reviews-container {
+    max-height: 60vh;
+    overflow-y: auto;
+    padding-right: 15px;
+}
+
+.review-card {
+    padding: 25px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.review-card:last-child {
+    border-bottom: none;
+}
+
+.review-text {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #333;
+    margin-bottom: 15px;
+    font-style: italic;
+}
+
+.review-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+}
+
+.review-author {
+    font-weight: 600;
+    color: #000;
+}
+
+.review-date {
+    color: #999;
+}
+
+.no-reviews {
+    text-align: center;
+    color: #999;
+    padding: 40px 0;
+}
+
+/* Форма обратной связи */
+.contact-form {
+    margin-top: 20px;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #000;
+    box-shadow: 0 0 0 2px rgba(0,0,0,0.05);
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 15px;
+    background: #000;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.submit-btn:hover {
+    background: #333;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.form-note {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 13px;
+    color: #999;
+}
+
+/* Сообщения об успехе/ошибке */
+.success-message {
+    background: #e8f5e9;
+    color: #2e7d32;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    border-left: 4px solid #2e7d32;
+}
+
+.error-message {
+    background: #ffebee;
+    color: #c62828;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    border-left: 4px solid #c62828;
+}
+
+/* Ссылка на админку */
+.admin-link {
+    position: absolute;
+    bottom: 30px;
+    left: 40px;
+    color: #ccc;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+    opacity: 0.5;
+}
+
+.admin-link:hover {
+    color: #000;
+    opacity: 1;
+}
+
+/* Адаптивность для планшетов */
+@media (max-width: 1024px) {
+    .content {
+        min-width: 400px;
+        padding: 40px 30px;
+    }
+    
+    .header h1 {
+        font-size: 36px;
+    }
+    
+    .project-name {
+        font-size: 16px;
+    }
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 768px) {
+    body {
+        overflow: auto;
+        height: auto;
+    }
+    
+    .container {
+        flex-direction: column;
+        height: auto;
+    }
+    
+    .content {
+        width: 100%;
+        min-width: auto;
+        height: auto;
+        padding: 30px 20px;
+    }
+    
+    .preview {
+        width: 100%;
+        height: 400px;
+    }
+    
+    .header h1 {
+        font-size: 32px;
+    }
+    
+    .projects-list {
+        max-height: 400px;
+    }
+    
+    .modal-content {
+        width: 95%;
+        padding: 30px 20px;
+        margin: 20px;
+    }
+    
+    .modal h2 {
+        font-size: 28px;
+    }
+    
+    .admin-link {
+        position: static;
+        margin-top: 30px;
+        display: inline-block;
+    }
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.preview-image {
+    animation: fadeIn 0.5s ease;
+}
+
+/* Анимация для превью */
+@keyframes subtleZoom {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.preview-image {
+    animation: subtleZoom 20s infinite ease-in-out;
+}
+
+/* Эффект при наведении на альбом */
+.project-item {
+    position: relative;
+    overflow: hidden;
+}
+
+.project-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #000;
+    transition: width 0.3s ease;
+}
+
+.project-item:hover::after {
+    width: 100%;
+}
+
+/* Индикатор активного альбома */
+.project-item.active {
+    background: #f8f8f8;
+    border-left-color: #000;
+}
+
+/* Кнопка входа для админа */
+.admin-button-container {
+    position: absolute;
+    bottom: 30px;
+    left: 40px;
+    z-index: 100;
+}
+
+.admin-login-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+    color: #666;
+    text-decoration: none;
+    font-size: 13px;
+    transition: all 0.3s ease;
+}
+
+.admin-login-button:hover {
+    background: #000;
+    color: #fff;
+    border-color: #000;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.admin-icon {
+    font-size: 16px;
+}
+
+@media (max-width: 768px) {
+    .admin-button-container {
+        position: static;
+        margin-top: 20px;
+        text-align: center;
+    }
+}
+
+/* Стили для фото фотографа */
+.photographer-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.photographer-text {
+    flex: 1;
+}
+
+.photographer-photo {
+    width: 200px;
+    height: 100px;
+    border-radius: 10%;
+    object-fit: cover;
+    border: 3px solid #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.photographer-photo:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 768px) {
+    .photographer-info {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .photographer-photo {
+        width: 100px;
+        height: 100px;
+        margin-top: 10px;
+    }
+}
