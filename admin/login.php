@@ -1,16 +1,35 @@
 <?php
-require_once '../config.php';
+require_once __DIR__ . '/../config.php';
+
+// Защита от брутфорса
+if (!isset($_SESSION['login_attempts'])) {
+    $_SESSION['login_attempts'] = 0;
+    $_SESSION['last_login_attempt'] = 0;
+}
+
+if ($_SESSION['login_attempts'] >= 5) {
+    $time_passed = time() - $_SESSION['last_login_attempt'];
+    if ($time_passed < 900) { // 15 минут блокировки
+        die('Слишком много попыток входа. Попробуйте через 15 минут.');
+    } else {
+        $_SESSION['login_attempts'] = 0;
+    }
+}
 
 if (isLoggedIn()) {
     redirect('index.php');
+    exit;
 }
 
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = trim($_POST['username'] ?? '');
+    $username = sanitizeInput($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
 
+    // Регенерация ID сессии для защиты
+    session_regenerate_id(true);
+    
     $stmt = $pdo->prepare("SELECT * FROM user WHERE username = ?");
     $stmt->execute([$username]);
     $user = $stmt->fetch();
@@ -18,9 +37,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($user && password_verify($password, $user['password_hash'])) {
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
+        $_SESSION['login_attempts'] = 0;
+        $_SESSION['last_activity'] = time();
         redirect('index.php');
+        exit;
     } else {
-        $error = 'Неверное имя пользователя или пароль';
+        $_SESSION['login_attempts']++;
+        $_SESSION['last_login_attempt'] = time();
+        $error = 'Неверное имя пользователя или пароль. Осталось попыток: ' . (5 - $_SESSION['login_attempts']);
     }
 }
 ?>
@@ -56,12 +80,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             box-shadow: 0 10px 40px rgba(0,0,0,0.05);
             width: 100%;
             max-width: 400px;
-            animation: fadeIn 0.5s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
         }
         
         h1 {
@@ -69,7 +87,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             font-weight: 400;
             margin-bottom: 10px;
             color: #000;
-            letter-spacing: -0.5px;
         }
         
         .subtitle {
@@ -102,7 +119,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         input:focus {
             outline: none;
             border-color: #000;
-            box-shadow: 0 0 0 2px rgba(0,0,0,0.05);
         }
         
         button {
@@ -116,13 +132,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             font-weight: 500;
             cursor: pointer;
             transition: all 0.3s;
-            margin-top: 10px;
         }
         
         button:hover {
             background: #333;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
         
         .error {
@@ -142,25 +155,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             color: #999;
             text-decoration: none;
             font-size: 14px;
-            transition: color 0.2s;
         }
         
         .back-link:hover {
             color: #000;
-        }
-        
-        .info-text {
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-            font-size: 13px;
-            color: #999;
-            text-align: center;
-        }
-        
-        .info-text strong {
-            color: #333;
-            font-weight: 500;
         }
     </style>
 </head>
@@ -191,6 +189,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </form>
         
         <a href="../index.php" class="back-link">← Вернуться на главную</a>
-        
+    </div>
 </body>
 </html>

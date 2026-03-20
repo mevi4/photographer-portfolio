@@ -119,6 +119,7 @@ if (!empty($albums) && !empty($albums[0]['photos'])) {
                 <div class="add-review-form">
                     <h3>Оставить отзыв</h3>
                     <form action="review_add.php" method="post">
+                        <input type="hidden" name="csrf_token" value="<?= generateCSRFToken() ?>">
                         <div class="form-group">
                             <input type="text" name="nickname" placeholder="Ваше имя" required>
                         </div>
@@ -144,10 +145,12 @@ if (!empty($albums) && !empty($albums[0]['photos'])) {
                 <div class="contact-form">
                     <h3>Заказать съёмку</h3>
                     <form action="contact.php" method="post">
+                        <input type="hidden" name="csrf_token" value="<?= generateCSRFToken() ?>">
                         <div class="form-group">
-                            <input type="tel" name="phone" placeholder="Ваш номер телефона" required>
+                            <input type="tel" name="phone" id="phone" placeholder="+7 (999) 123-45-67" required>
                         </div>
                         <button type="submit" class="submit-btn">Отправить заявку</button>
+                        <p class="form-note">Введите номер в любом формате: 89991234567, +7 999 123-45-67, 9991234567</p>
                     </form>
                 </div>
             </div>
@@ -387,6 +390,34 @@ if (!empty($albums) && !empty($albums[0]['photos'])) {
                 } catch(e) {}
             }
         });
+    });
+
+        // Валидация телефона на клиенте
+    document.querySelector('.contact-form form')?.addEventListener('submit', function(e) {
+        const phoneInput = this.querySelector('input[name="phone"]');
+        let phone = phoneInput.value.trim();
+        
+        // Удаляем все кроме цифр и плюса
+        let digits = phone.replace(/[^0-9]/g, '');
+        
+        // Проверка длины
+        if (digits.length < 10 || digits.length > 12) {
+            e.preventDefault();
+            alert('Введите корректный номер телефона (10-12 цифр)');
+            phoneInput.focus();
+            return false;
+        }
+        
+        // Проверка первой цифры
+        let firstDigit = digits[0];
+        if (firstDigit !== '7' && firstDigit !== '8' && firstDigit !== '9') {
+            e.preventDefault();
+            alert('Номер должен начинаться с 7, 8 или 9');
+            phoneInput.focus();
+            return false;
+        }
+        
+        return true;
     });
     </script>
 </body>

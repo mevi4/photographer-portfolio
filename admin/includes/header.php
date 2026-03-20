@@ -3,12 +3,23 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+// Проверка активности сессии (30 минут)
+if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > 1800)) {
+    session_unset();
+    session_destroy();
+    redirect('login.php');
+}
+$_SESSION['last_activity'] = time();
+
 require_once dirname(__DIR__, 2) . '/config.php';
 
 if (!isLoggedIn()) {
     redirect('login.php');
     exit;
 }
+
+$csrf_token = generateCSRFToken();
+
 ?><!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -389,3 +400,4 @@ if (!isLoggedIn()) {
         </div>
     </div>
     <div class="content">
+         <input type="hidden" id="global_csrf_token" value="<?= $csrf_token ?>">

@@ -1,0 +1,31 @@
+# Отключаем вывод ошибок на экран
+php_flag display_errors off
+php_flag display_startup_errors off
+
+# Защита от просмотра папок
+Options -Indexes
+
+# Защита скрытых файлов
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Защита конфигурационных файлов
+<FilesMatch "^(config\.php|.*\.sql|.*\.log)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Безопасные заголовки
+<IfModule mod_headers.c>
+    Header set X-Frame-Options "DENY"
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Сжатие
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json
+</IfModule>
