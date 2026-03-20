@@ -192,10 +192,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         <a href="../index.php" class="back-link">← Вернуться на главную</a>
         
-        <div class="info-text">
-            <p>Демо-доступ: <strong>admin</strong> / <strong>admin123</strong></p>
-            <p>Помощник: <strong>helper</strong> / <strong>helper123</strong></p>
-        </div>
-    </div>
 </body>
 </html>
