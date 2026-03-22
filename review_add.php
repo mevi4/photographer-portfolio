@@ -19,13 +19,22 @@ if (!checkRateLimit('review', 3, 300)) { // 3 отзыва за 5 минут
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nickname = sanitizeInput($_POST['nickname'] ?? '');
     $content = sanitizeInput($_POST['content'] ?? '');
-    $captcha = sanitizeInput($_POST['captcha'] ?? '');
 
-    // Валидация капчи
-    if ($captcha != '5') {
-        $_SESSION['error'] = 'Неверный ответ на капчу.';
+    if (!isset($_POST['puzzle_solved']) || $_POST['puzzle_solved'] != '1') {
+        $_SESSION['contact_error'] = 'Соберите пазл, чтобы отправить заявку.';
         redirect('index.php');
+        exit; // Важно выйти после редиректа
     }
+
+    if (!verifyPuzzleCaptcha()) {
+        $_SESSION['contact_error'] = 'Ошибка капчи. Попробуйте ещё раз.';
+        redirect('index.php');
+        exit; // Важно выйти после редиректа
+    }
+
+    // --- УДАЛЕНИЕ СЕССИИ ПОСЛЕ УСПЕШНОЙ ПРОВЕРКИ ---
+    unset($_SESSION['puzzle_hole']);
+    unset($_SESSION['puzzle_solved']);
 
     // Валидация длины
     if (strlen($nickname) < 2 || strlen($nickname) > 50) {
@@ -60,13 +69,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         $stmt = $pdo->prepare("INSERT INTO review (nickname, content) VALUES (?, ?)");
         $stmt->execute([$nickname, $content]);
-        
+
         $_SESSION['success'] = 'Спасибо! Отзыв отправлен на модерацию.';
     } catch (PDOException $e) {
         error_log('Review insert error: ' . $e->getMessage());
         $_SESSION['error'] = 'Ошибка при сохранении отзыва. Попробуйте позже.';
     }
-    
+
     redirect('index.php');
 } else {
     redirect('index.php');
