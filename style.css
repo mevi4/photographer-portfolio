@@ -23,14 +23,14 @@ body {
 
 /* Левая часть с контентом */
 .content {
-    width: 40%;
-    min-width: 500px;
-    padding: 60px 40px;
+    width: 35%;
+    min-width: 450px;
+    padding: 40px 30px;
     background: #fff;
     display: flex;
     flex-direction: column;
     position: relative;
-    box-shadow: 2px 0 20px rgba(0,0,0,0.02);
+    box-shadow: 2px 0 20px rgba(0, 0, 0, 0.02);
 }
 
 /* Заголовок */
@@ -41,19 +41,19 @@ body {
 }
 
 .header h1 {
-    font-size: 42px;
+    font-size: 32px;
     font-weight: 400;
     letter-spacing: -0.5px;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     color: #000;
 }
 
 .meta-info {
-    font-size: 14px;
+    font-size: 12px;
     color: #666;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     flex-wrap: wrap;
 }
 
@@ -95,7 +95,7 @@ body {
 .project-item {
     display: flex;
     align-items: center;
-    padding: 18px 15px;
+    padding: 12px 12px;
     margin-bottom: 5px;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -110,15 +110,15 @@ body {
 }
 
 .project-number {
-    font-size: 13px;
+    font-size: 11px;
     color: #999;
-    width: 45px;
+    width: 35px;
     font-weight: 400;
     letter-spacing: 0.5px;
 }
 
 .project-name {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 400;
     color: #333;
     transition: color 0.2s;
@@ -130,7 +130,7 @@ body {
 
 /* Правая часть с превью */
 .preview {
-    width: 60%;
+    width: 65%;
     height: 100vh;
     position: relative;
     background: #000;
@@ -157,7 +157,7 @@ body {
     left: 0;
     right: 0;
     padding: 50px;
-    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
     color: white;
 }
 
@@ -210,6 +210,7 @@ body {
         transform: translateY(30px);
         opacity: 0;
     }
+
     to {
         transform: translateY(0);
         opacity: 1;
@@ -251,7 +252,7 @@ body {
 }
 
 .review-card {
-    padding: 25px 0;
+    padding: 18px 0;
     border-bottom: 1px solid #eee;
 }
 
@@ -260,10 +261,10 @@ body {
 }
 
 .review-text {
-    font-size: 16px;
+    font-size: 14px;
     line-height: 1.8;
     color: #333;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     font-style: italic;
 }
 
@@ -271,7 +272,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .review-author {
@@ -295,7 +296,7 @@ body {
 }
 
 .form-group {
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
 .form-group label {
@@ -308,27 +309,27 @@ body {
 
 .form-group input {
     width: 100%;
-    padding: 15px;
+    padding: 12px;
     border: 1px solid #ddd;
     border-radius: 8px;
-    font-size: 16px;
+    font-size: 14px;
     transition: all 0.3s;
 }
 
 .form-group input:focus {
     outline: none;
     border-color: #000;
-    box-shadow: 0 0 0 2px rgba(0,0,0,0.05);
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
 }
 
 .submit-btn {
     width: 100%;
-    padding: 15px;
+    padding: 12px;
     background: #000;
     color: white;
     border: none;
     border-radius: 8px;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s;
@@ -337,7 +338,7 @@ body {
 .submit-btn:hover {
     background: #333;
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .form-note {
@@ -391,11 +392,11 @@ body {
         min-width: 400px;
         padding: 40px 30px;
     }
-    
+
     .header h1 {
         font-size: 36px;
     }
-    
+
     .project-name {
         font-size: 16px;
     }
@@ -407,42 +408,42 @@ body {
         overflow: auto;
         height: auto;
     }
-    
+
     .container {
         flex-direction: column;
         height: auto;
     }
-    
+
     .content {
         width: 100%;
         min-width: auto;
         height: auto;
         padding: 30px 20px;
     }
-    
+
     .preview {
         width: 100%;
         height: 400px;
     }
-    
+
     .header h1 {
         font-size: 32px;
     }
-    
+
     .projects-list {
         max-height: 400px;
     }
-    
+
     .modal-content {
         width: 95%;
         padding: 30px 20px;
         margin: 20px;
     }
-    
+
     .modal h2 {
         font-size: 28px;
     }
-    
+
     .admin-link {
         position: static;
         margin-top: 30px;
@@ -452,8 +453,13 @@ body {
 
 /* Анимации */
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 .preview-image {
@@ -462,9 +468,17 @@ body {
 
 /* Анимация для превью */
 @keyframes subtleZoom {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
 
 .preview-image {
@@ -525,7 +539,7 @@ body {
     color: #fff;
     border-color: #000;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .admin-icon {
@@ -573,10 +587,102 @@ body {
         flex-direction: column;
         text-align: center;
     }
-    
+
     .photographer-photo {
         width: 100px;
         height: 100px;
         margin-top: 10px;
     }
+}
+
+/* Капча-пазл */
+#puzzle-area {
+    position: relative;
+    display: inline-block;
+    overflow: auto;
+    border: 1px solid #ddd;
+    background: #f0f0f0;
+}
+
+#puzzle-bg {
+    display: block;   /* убираем масштабирование */
+    height: auto;
+    width: auto;
+}
+
+#puzzle-piece {
+    position: absolute;
+    cursor: grab;
+    z-index: 10;
+}
+
+.puzzle-status {
+    margin-top: 10px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.captcha-wrapper {
+    display: inline-block;
+    margin: 10px 0;
+}
+
+.captcha-square,
+.captcha-success {
+    width: 48px;
+    height: 48px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+    line-height: 48px;
+    font-size: 24px;
+    cursor: pointer;
+    background: white;
+    transition: all 0.2s;
+}
+
+.captcha-square:hover {
+    border-color: #000;
+    transform: scale(1.02);
+}
+
+.captcha-success {
+    background: #e8f5e9;
+    border-color: #2e7d32;
+    cursor: default;
+}
+
+.puzzle-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    max-width: 90%;
+    max-height: 90%;
+    overflow: auto;
+}
+
+.close-puzzle-btn {
+    display: block;
+    margin: 15px auto 0;
+    background: #f0f0f0;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.puzzle-modal #puzzle-area {
+    max-width: 90%;
+    max-height: 70vh;
+}
+
+.puzzle-modal #puzzle-area {
+    width: 100%;
+    height: auto;
 }

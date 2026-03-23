@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Регенерация ID сессии для защиты
     session_regenerate_id(true);
-    
+
     $stmt = $pdo->prepare("SELECT * FROM user WHERE username = ?");
     $stmt->execute([$username]);
     $user = $stmt->fetch();
@@ -44,12 +44,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $_SESSION['login_attempts']++;
         $_SESSION['last_login_attempt'] = time();
-        $error = 'Неверное имя пользователя или пароль. Осталось попыток: ' . (5 - $_SESSION['login_attempts']);
+        // Убираем информацию о количестве оставшихся попыток
+        $error = 'Неверное имя пользователя или пароль.';
     }
 }
 ?>
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -63,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Inter', sans-serif;
             background: #fafafa;
@@ -72,33 +74,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             align-items: center;
             justify-content: center;
         }
-        
+
         .login-container {
             background: white;
             padding: 50px;
             border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
             width: 100%;
             max-width: 400px;
         }
-        
+
         h1 {
             font-size: 32px;
             font-weight: 400;
             margin-bottom: 10px;
             color: #000;
         }
-        
+
         .subtitle {
             color: #666;
             margin-bottom: 30px;
             font-size: 14px;
         }
-        
+
         .form-group {
             margin-bottom: 25px;
         }
-        
+
         label {
             display: block;
             margin-bottom: 8px;
@@ -106,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             color: #333;
             font-weight: 500;
         }
-        
+
         input {
             width: 100%;
             padding: 15px;
@@ -115,12 +117,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             font-size: 16px;
             transition: all 0.3s;
         }
-        
+
         input:focus {
             outline: none;
             border-color: #000;
         }
-        
+
         button {
             width: 100%;
             padding: 15px;
@@ -133,11 +135,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             cursor: pointer;
             transition: all 0.3s;
         }
-        
+
         button:hover {
             background: #333;
         }
-        
+
         .error {
             background: #ffebee;
             color: #c62828;
@@ -147,7 +149,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             font-size: 14px;
             border-left: 4px solid #c62828;
         }
-        
+
         .back-link {
             display: block;
             text-align: center;
@@ -156,39 +158,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             text-decoration: none;
             font-size: 14px;
         }
-        
+
         .back-link:hover {
             color: #000;
         }
     </style>
 </head>
+
 <body>
     <div class="login-container">
         <h1>Админ-панель</h1>
         <div class="subtitle">Вход для фотографа и помощника</div>
-        
+
         <?php if ($error): ?>
             <div class="error"><?= htmlspecialchars($error) ?></div>
         <?php endif; ?>
-        
+
         <form method="post">
             <div class="form-group">
                 <label for="username">Имя пользователя</label>
-                <input type="text" id="username" name="username" required 
-                       value="<?= htmlspecialchars($_POST['username'] ?? '') ?>"
-                       placeholder="Введите логин">
+                <input type="text" id="username" name="username" required
+                    value="<?= htmlspecialchars($_POST['username'] ?? '') ?>" placeholder="Введите логин">
             </div>
-            
+
             <div class="form-group">
                 <label for="password">Пароль</label>
-                <input type="password" id="password" name="password" required 
-                       placeholder="Введите пароль">
+                <input type="password" id="password" name="password" required placeholder="Введите пароль">
             </div>
-            
+
             <button type="submit">Войти</button>
         </form>
-        
+
         <a href="../index.php" class="back-link">← Вернуться на главную</a>
     </div>
 </body>
+
 </html>
